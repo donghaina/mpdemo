@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,9 +35,9 @@ class MpdemoApplicationTests {
     @Test
     public void addUser() {
         User user = new User();
-        user.setName("东方不败");
+        user.setName("任我行");
         user.setAge(42);
-        user.setEmail("dongfangbubai@qq.com");
+        user.setEmail("renwoxing@qq.com");
 
         // 手动设置时间
 //        user.setCreateTime(new Date());
@@ -97,4 +98,24 @@ class MpdemoApplicationTests {
         System.out.println(page.hasPrevious());   // 是否有上一页
     }
 
+    // 删除操作 物理删除
+    @Test
+    public void testDeleteById() {
+        int result = userMapper.deleteById(1L);
+        System.out.println(result);
+    }
+
+    // 批量删除 物理删除
+    @Test
+    public void testDeleteBatchIds(){
+        int result = userMapper.deleteBatchIds(Arrays.asList(2,3));
+        System.out.println(result);
+    }
+
+    // 删除操作 逻辑删除
+    @Test
+    public void testLogicDeleteById() {
+        int result = userMapper.deleteById(1249349151917993985L);
+        System.out.println(result);
+    }
 }
