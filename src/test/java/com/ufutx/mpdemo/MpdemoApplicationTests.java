@@ -35,9 +35,9 @@ class MpdemoApplicationTests {
     @Test
     public void addUser() {
         User user = new User();
-        user.setName("任我行");
+        user.setName("岳不群");
         user.setAge(42);
-        user.setEmail("renwoxing@qq.com");
+        user.setEmail("yuebuqun@qq.com");
 
         // 手动设置时间
 //        user.setCreateTime(new Date());
