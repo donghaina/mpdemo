@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -32,9 +34,9 @@ class MpdemoApplicationTests {
     @Test
     public void addUser(){
         User user = new User();
-        user.setName("James");
-        user.setAge(35);
-        user.setEmail("James@qq.com");
+        user.setName("东方不败");
+        user.setAge(42);
+        user.setEmail("dongfangbubai@qq.com");
 
         // 手动设置时间
 //        user.setCreateTime(new Date());
@@ -43,7 +45,7 @@ class MpdemoApplicationTests {
         int insert = userMapper.insert(user);
         System.out.println("Insert:" + insert);
     }
-
+    // 更新操作
     @Test
     public void updateUser(){
         User user = new User();
@@ -52,6 +54,30 @@ class MpdemoApplicationTests {
 
         int row = userMapper.updateById(user);
         System.out.println("Update:" + row);
+    }
+    // 测试乐观锁
+    @Test
+    public void testOptimisticLocker(){
+        User user = userMapper.selectById(1249334263631941634L);
+        user.setAge(200);
+        userMapper.updateById(user);
+    }
+
+    // 多个ID批量查询
+    @Test
+    public void testSelectByIds(){
+        List<User> users = userMapper.selectBatchIds(Arrays.asList(1L,2L,3L));
+        System.out.println(users);
+    }
+
+    // 多条件查询
+    @Test
+    public void testSelectByMap(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("name","Jack");
+        map.put("age",18);
+        List<User> users = userMapper.selectByMap(map);
+        users.forEach(System.out::println);
     }
 
 }
