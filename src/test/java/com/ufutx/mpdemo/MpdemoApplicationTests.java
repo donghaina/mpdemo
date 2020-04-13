@@ -1,5 +1,7 @@
 package com.ufutx.mpdemo;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ufutx.mpdemo.entity.User;
 import com.ufutx.mpdemo.mapper.UserMapper;
@@ -107,8 +109,8 @@ class MpdemoApplicationTests {
 
     // 批量删除 物理删除
     @Test
-    public void testDeleteBatchIds(){
-        int result = userMapper.deleteBatchIds(Arrays.asList(2,3));
+    public void testDeleteBatchIds() {
+        int result = userMapper.deleteBatchIds(Arrays.asList(2, 3));
         System.out.println(result);
     }
 
@@ -117,5 +119,21 @@ class MpdemoApplicationTests {
     public void testLogicDeleteById() {
         int result = userMapper.deleteById(1249349151917993985L);
         System.out.println(result);
+    }
+
+    // mp 实现复杂查询操作
+    @Test
+    public void testSelectQuery() {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+//        wrapper.ge("age", 40);
+//        wrapper.eq("name","任我行");
+//        wrapper.ne("name","任我行");
+        wrapper.between("age",40,50);
+//        wrapper.like("name","任");
+
+//        wrapper.orderByDesc("id").last("limit 1");
+//        wrapper.select("id","name");
+        List<User> users = userMapper.selectList(wrapper);
+        System.out.println(users);
     }
 }
